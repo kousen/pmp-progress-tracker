@@ -1,0 +1,52 @@
+{
+  "name": "pmp-progress-tracker",
+  "version": "1.0.0",
+  "description": "Student progress tracker for PMP certification course - CPSC 403 Senior Seminar",
+  "author": "Ken Kousen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/pmp-progress-tracker"
+  },
+  "keywords": [
+    "pmp",
+    "progress-tracker",
+    "education",
+    "nextjs",
+    "typescript"
+  ],
+  "private": false,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/postgres": "^0.10.0",
+    "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^12.2.0",
+    "dotenv": "^17.2.2",
+    "js-cookie": "^3.0.5",
+    "next": "15.5.3",
+    "pg": "^8.16.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

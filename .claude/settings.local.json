@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/kennethkousen/Documents/Trinity/pmp-progress-tracker/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

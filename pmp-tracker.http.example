@@ -1,0 +1,77 @@
+### PMP Progress Tracker API Requests - EXAMPLE FILE
+### Copy this to pmp-tracker.http and add real access codes
+### Base URL: https://pmp-progress-tracker.vercel.app
+
+### Get all students
+GET https://pmp-progress-tracker.vercel.app/api/students
+Accept: application/json
+
+### Add a new student
+POST https://pmp-progress-tracker.vercel.app/api/students
+Content-Type: application/json
+
+{
+  "name": "Test Student",
+  "email": "test@example.com"
+}
+
+### Add student (name only)
+POST https://pmp-progress-tracker.vercel.app/api/students
+Content-Type: application/json
+
+{
+  "name": "Another Student"
+}
+
+### Get all course modules
+GET https://pmp-progress-tracker.vercel.app/api/modules
+Accept: application/json
+
+### Get all progress records
+GET https://pmp-progress-tracker.vercel.app/api/progress
+Accept: application/json
+
+### Get progress for specific student (change ID as needed)
+GET https://pmp-progress-tracker.vercel.app/api/progress?studentId=1
+Accept: application/json
+
+### Update student progress
+POST https://pmp-progress-tracker.vercel.app/api/progress
+Content-Type: application/json
+
+{
+  "studentId": 1,
+  "moduleId": 1,
+  "percentage": 75
+}
+
+### Update another progress example
+POST https://pmp-progress-tracker.vercel.app/api/progress
+Content-Type: application/json
+
+{
+  "studentId": 2,
+  "moduleId": 3,
+  "percentage": 100
+}
+
+### Admin login
+POST https://pmp-progress-tracker.vercel.app/api/auth/login
+Content-Type: application/json
+
+{
+  "type": "admin",
+  "password": "YOUR_ADMIN_PASSWORD"
+}
+
+### Student login - Example
+# Replace YOUR_ACCESS_CODE with actual access code
+POST https://pmp-progress-tracker.vercel.app/api/auth/login
+Content-Type: application/json
+
+{
+  "type": "student",
+  "accessCode": "YOUR_ACCESS_CODE"
+}
+
+###
