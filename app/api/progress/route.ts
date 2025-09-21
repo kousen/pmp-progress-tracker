@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { getProgress, updateProgress } from '@/lib/db-unified';
+import { canModifyProgress } from '@/lib/api-auth';
 
 export async function GET(request: Request) {
   try {
@@ -17,13 +18,29 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { studentId, moduleId, percentage } = await request.json();
 
     if (!studentId || !moduleId || percentage === undefined) {
       return NextResponse.json(
         { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    // Check if user can modify this student's progress
+    if (!canModifyProgress(request, studentId)) {
+      return NextResponse.json(
+        { error: 'Unauthorized to modify this progress' },
+        { status: 403 }
+      );
+    }
+
+    // Validate percentage is between 0 and 100
+    if (percentage < 0 || percentage > 100) {
+      return NextResponse.json(
+        { error: 'Percentage must be between 0 and 100' },
         { status: 400 }
       );
     }

@@ -21,9 +21,25 @@ export async function POST(request: Request) {
   try {
     const { name, email } = await request.json();
 
-    if (!name) {
+    if (!name || typeof name !== 'string') {
       return NextResponse.json(
         { error: 'Name is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate name length
+    if (name.length < 2 || name.length > 100) {
+      return NextResponse.json(
+        { error: 'Name must be between 2 and 100 characters' },
+        { status: 400 }
+      );
+    }
+
+    // Basic email validation if provided
+    if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
         { status: 400 }
       );
     }
