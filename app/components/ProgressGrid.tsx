@@ -32,13 +32,13 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
 
       // Check if we got an error response
       if (studentsData.error) {
-        console.error('API Error:', studentsData);
+        // console.error('API Error:', studentsData);
         setStudents(studentsData.students || []);
       } else if (Array.isArray(studentsData)) {
-        console.log('Fetched students:', studentsData.length, studentsData);
+        // console.log('Fetched students:', studentsData.length, studentsData);
         setStudents(studentsData);
       } else {
-        console.error('Unexpected students data:', studentsData);
+        // console.error('Unexpected students data:', studentsData);
         setStudents([]);
       }
       setModules(modulesData);
@@ -50,7 +50,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
       });
       setProgress(progressMap);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      // console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
     }
@@ -72,7 +72,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
         await fetchData();
       }
     } catch (error) {
-      console.error('Error updating progress:', error);
+      // console.error('Error updating progress:', error);
     }
   };
 

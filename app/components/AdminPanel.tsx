@@ -38,7 +38,7 @@ export default function AdminPanel({ onStudentAdded }: AdminPanelProps) {
         onStudentAdded();
       }
     } catch (error) {
-      console.error('Error adding student:', error);
+      // console.error('Error adding student:', error);
     } finally {
       setLoading(false);
     }

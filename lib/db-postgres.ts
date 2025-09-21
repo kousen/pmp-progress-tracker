@@ -7,7 +7,7 @@ async function ensureConnection() {
     await sql`SELECT 1`;
     return true;
   } catch (error) {
-    console.error('Database connection error:', error);
+    // console.error('Database connection error:', error);
     return false;
   }
 }
@@ -91,7 +91,7 @@ export async function initializePostgresSchema() {
       }
     }
   } catch (error) {
-    console.error('Error initializing PostgreSQL schema:', error);
+    // console.error('Error initializing PostgreSQL schema:', error);
   }
 }
 
@@ -99,10 +99,10 @@ export async function initializePostgresSchema() {
 export const getStudentsPostgres = async () => {
   try {
     const { rows } = await sql`SELECT * FROM students ORDER BY name`;
-    console.log(`Fetched ${rows?.length || 0} students from PostgreSQL`);
+    // console.log(`Fetched ${rows?.length || 0} students from PostgreSQL`);
     return rows || [];
   } catch (error) {
-    console.error('Error fetching students from PostgreSQL:', error);
+    // console.error('Error fetching students from PostgreSQL:', error);
     throw error; // Let the error propagate so we can see what's wrong
   }
 };

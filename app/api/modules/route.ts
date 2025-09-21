@@ -6,7 +6,7 @@ export async function GET() {
     const modules = await getModules();
     return NextResponse.json(modules);
   } catch (error) {
-    console.error('Error fetching modules:', error);
+    // console.error('Error fetching modules:', error);
     return NextResponse.json(
       { error: 'Failed to fetch modules' },
       { status: 500 }

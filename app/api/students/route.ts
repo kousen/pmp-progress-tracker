@@ -4,10 +4,10 @@ import { getStudents, addStudent } from '@/lib/db-unified';
 export async function GET() {
   try {
     const students = await getStudents();
-    console.log(`API: Returning ${students?.length || 0} students`);
+    // console.log(`API: Returning ${students?.length || 0} students`);
     return NextResponse.json(students || []);
   } catch (error: any) {
-    console.error('Error fetching students:', error);
+    // console.error('Error fetching students:', error);
     // Return error details to help debug
     return NextResponse.json({
       error: 'Failed to fetch students',
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       accessCode: result.accessCode
     });
   } catch (error) {
-    console.error('Error adding student:', error);
+    // console.error('Error adding student:', error);
     return NextResponse.json(
       { error: 'Failed to add student' },
       { status: 500 }

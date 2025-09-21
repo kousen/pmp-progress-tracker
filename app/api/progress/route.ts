@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const progress = await getProgress(studentId ? parseInt(studentId) : undefined);
     return NextResponse.json(progress);
   } catch (error) {
-    console.error('Error fetching progress:', error);
+    // console.error('Error fetching progress:', error);
     return NextResponse.json(
       { error: 'Failed to fetch progress' },
       { status: 500 }
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     await updateProgress(studentId, moduleId, videosCompleted, percentage);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error updating progress:', error);
+    // console.error('Error updating progress:', error);
     return NextResponse.json(
       { error: 'Failed to update progress' },
       { status: 500 }

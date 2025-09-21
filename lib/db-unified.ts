@@ -8,7 +8,9 @@ const USE_POSTGRES = process.env.POSTGRES_URL ? true : false;
 
 // Initialize database on first import
 if (USE_POSTGRES) {
-  postgresDb.initializePostgresSchema().catch(console.error);
+  postgresDb.initializePostgresSchema().catch(() => {
+    // Silent catch - initialization errors are handled internally
+  });
 }
 
 // Export unified functions that automatically use the right database
