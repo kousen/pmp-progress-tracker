@@ -20,9 +20,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { studentId, moduleId, percentage } = await request.json();
+    const { studentId, moduleId, lecturesCompleted, totalLectures } = await request.json();
 
-    if (!studentId || !moduleId || percentage === undefined) {
+    if (!studentId || !moduleId || lecturesCompleted === undefined || !totalLectures) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -37,18 +37,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate percentage is between 0 and 100
-    if (percentage < 0 || percentage > 100) {
+    // Validate lectures completed is between 0 and total lectures
+    if (lecturesCompleted < 0 || lecturesCompleted > totalLectures) {
       return NextResponse.json(
-        { error: 'Percentage must be between 0 and 100' },
+        { error: `Lectures completed must be between 0 and ${totalLectures}` },
         { status: 400 }
       );
     }
 
-    // Calculate videos completed based on percentage (rough estimate)
-    const videosCompleted = Math.round((percentage / 100) * 10); // Assuming avg 10 videos per module
+    // Calculate percentage from lectures completed
+    const percentage = Math.round((lecturesCompleted / totalLectures) * 100);
 
-    await updateProgress(studentId, moduleId, videosCompleted, percentage);
+    await updateProgress(studentId, moduleId, lecturesCompleted, percentage);
     return NextResponse.json({ success: true });
   } catch (error) {
     // console.error('Error updating progress:', error);

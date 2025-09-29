@@ -54,22 +54,19 @@ db.exec(schema);
 const moduleCount = db.prepare('SELECT COUNT(*) as count FROM course_modules').get() as { count: number };
 
 if (moduleCount.count === 0) {
-  // Based on the Udemy course structure
+  // Based on actual Udemy course structure: 11 sections, 238 lectures total
   const modules = [
-    { module_number: 1, title: 'Introduction & Overview', total_videos: 8, duration_minutes: 45 },
-    { module_number: 2, title: 'Project Management Fundamentals', total_videos: 15, duration_minutes: 120 },
-    { module_number: 3, title: 'Integration Management', total_videos: 12, duration_minutes: 90 },
-    { module_number: 4, title: 'Scope Management', total_videos: 10, duration_minutes: 75 },
-    { module_number: 5, title: 'Schedule Management', total_videos: 14, duration_minutes: 105 },
-    { module_number: 6, title: 'Cost Management', total_videos: 11, duration_minutes: 80 },
-    { module_number: 7, title: 'Quality Management', total_videos: 9, duration_minutes: 65 },
-    { module_number: 8, title: 'Resource Management', total_videos: 10, duration_minutes: 70 },
-    { module_number: 9, title: 'Communications Management', total_videos: 8, duration_minutes: 55 },
-    { module_number: 10, title: 'Risk Management', total_videos: 13, duration_minutes: 95 },
-    { module_number: 11, title: 'Procurement Management', total_videos: 7, duration_minutes: 50 },
-    { module_number: 12, title: 'Stakeholder Management', total_videos: 9, duration_minutes: 60 },
-    { module_number: 13, title: 'Agile & Hybrid Approaches', total_videos: 16, duration_minutes: 110 },
-    { module_number: 14, title: 'Practice Tests & Exam Prep', total_videos: 20, duration_minutes: 180 }
+    { module_number: 1, title: 'Key Concepts', total_videos: 23, duration_minutes: 0 },
+    { module_number: 2, title: 'Agile Practice Guide - Introduction', total_videos: 7, duration_minutes: 0 },
+    { module_number: 3, title: 'Agile Practice Guide - Teams and Practices', total_videos: 6, duration_minutes: 0 },
+    { module_number: 4, title: 'Agile Practice Guide - Core Practices', total_videos: 6, duration_minutes: 0 },
+    { module_number: 5, title: 'Agile Practice Guide - Frameworks', total_videos: 7, duration_minutes: 0 },
+    { module_number: 6, title: 'Agile Practice Guide - Scaling and Advanced Topics', total_videos: 9, duration_minutes: 0 },
+    { module_number: 7, title: 'Example Projects', total_videos: 11, duration_minutes: 0 },
+    { module_number: 8, title: 'Planning', total_videos: 52, duration_minutes: 0 },
+    { module_number: 9, title: 'Executing and Monitoring', total_videos: 54, duration_minutes: 0 },
+    { module_number: 10, title: 'PMBOK 7th Edition', total_videos: 43, duration_minutes: 0 },
+    { module_number: 11, title: 'PMP Fast Track and Practice Exams', total_videos: 20, duration_minutes: 0 }
   ];
 
   const insertModule = db.prepare(`

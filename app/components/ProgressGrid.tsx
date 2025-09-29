@@ -56,7 +56,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
     }
   };
 
-  const updateProgress = async (targetStudentId: number, moduleId: number, percentage: number) => {
+  const updateProgress = async (targetStudentId: number, moduleId: number, lecturesCompleted: number, totalLectures: number) => {
     // Only allow updates if admin or if student is updating their own progress
     if (userType === 'viewer') return;
     if (userType === 'student' && targetStudentId !== studentId) return;
@@ -65,7 +65,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
       const response = await fetch('/api/progress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ studentId: targetStudentId, moduleId, percentage })
+        body: JSON.stringify({ studentId: targetStudentId, moduleId, lecturesCompleted, totalLectures })
       });
 
       if (response.ok) {
@@ -102,7 +102,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
               >
                 <div className="font-bold">M{module.module_number}</div>
                 <div className="font-normal text-gray-300 text-xs mt-1">{module.title}</div>
-                <div className="font-normal text-gray-400 text-xs">({module.total_videos} videos)</div>
+                <div className="font-normal text-gray-400 text-xs">({module.total_videos} lectures)</div>
               </th>
             ))}
             <th className="bg-gray-800 text-white p-3 text-center">Overall</th>
@@ -132,6 +132,7 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
                 {modules.map((module) => {
                   const key = `${student.id}-${module.id}`;
                   const prog = progress.get(key);
+                  const lecturesCompleted = prog?.videos_completed || 0;
                   const percentage = prog?.percentage || 0;
 
                   // Can edit if: admin OR (student editing their own row)
@@ -139,25 +140,29 @@ export default function ProgressGrid({ userType, studentId }: ProgressGridProps)
 
                   return (
                     <td key={module.id} className="p-2 text-center border-r">
-                      {canEdit ? (
-                        <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          value={percentage}
-                          onChange={(e) => updateProgress(student.id, module.id, parseInt(e.target.value) || 0)}
-                          className={`w-16 p-1 text-center rounded ${getProgressColor(percentage)}`}
-                        />
-                      ) : (
-                        <div className={`p-2 rounded ${getProgressColor(percentage)}`}>
-                          {percentage}%
+                      <div className={`p-2 rounded ${getProgressColor(percentage)}`}>
+                        {canEdit ? (
+                          <input
+                            type="number"
+                            min="0"
+                            max={module.total_videos}
+                            value={lecturesCompleted}
+                            onChange={(e) => updateProgress(student.id, module.id, parseInt(e.target.value) || 0, module.total_videos)}
+                            className={`w-16 p-1 text-center rounded bg-transparent`}
+                            placeholder="0"
+                          />
+                        ) : (
+                          <span>{lecturesCompleted}</span>
+                        )}
+                        <div className="text-xs text-gray-600 mt-1">
+                          / {module.total_videos}
                         </div>
-                      )}
-                      {prog && (
-                        <div className="text-xs text-gray-500 mt-1">
-                          {prog.videos_completed}/{module.total_videos}
-                        </div>
-                      )}
+                        {percentage > 0 && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            ({percentage}%)
+                          </div>
+                        )}
+                      </div>
                     </td>
                   );
                 })}
